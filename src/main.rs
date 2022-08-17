@@ -21,9 +21,10 @@ fn main() {
 
     let correct_guess = loop {
         tentativas += 1;
-        let guess = input("Digite um número:")
-            .parse::<i32>()
-            .expect("Erro: não foi digitado um número");
+        let guess = match input("Digite um número:").parse::<i32>() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
 
         match guess.cmp(&random_number) {
             Ordering::Less => println!("Muito baixo!"),
