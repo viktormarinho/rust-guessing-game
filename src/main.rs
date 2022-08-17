@@ -1,4 +1,5 @@
 use rand::{thread_rng, Rng};
+use std::cmp::Ordering;
 use std::io;
 
 fn input(message: &str) -> String {
@@ -24,13 +25,13 @@ fn main() {
             .parse::<i32>()
             .expect("Erro: não foi digitado um número");
 
-        if guess > random_number {
-            println!("Muito alto!");
-        } else if guess < random_number {
-            println!("Muito baixo!");
-        } else {
-            println!("Parabéns! você acertou!");
-            break guess;
+        match guess.cmp(&random_number) {
+            Ordering::Less => println!("Muito baixo!"),
+            Ordering::Greater => println!("Muito alto!"),
+            Ordering::Equal => {
+                println!("Parabéns! você acertou!");
+                break guess;
+            }
         }
     };
 
